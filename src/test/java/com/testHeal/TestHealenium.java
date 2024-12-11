@@ -1,6 +1,8 @@
 package com.testHeal;
 
 import com.epam.healenium.SelfHealingDriver;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,6 +15,15 @@ public class TestHealenium {
 
     private static final Logger log = LoggerFactory.getLogger(TestHealenium.class);
 
+    @Test
+     public void test(){
+        ChromeOptions options = new ChromeOptions();
+        WebDriver delegate = new ChromeDriver(options);
+        SelfHealingDriver driver =  SelfHealingDriver.create((WebDriver) delegate);
+        driver.get("https://www.homedepot.com");
+    }
+/*
+
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
         ChromeOptions options = new ChromeOptions();
         WebDriver delegate = new ChromeDriver(options);
@@ -23,6 +34,7 @@ public class TestHealenium {
        // driver.get("http://localhost:3000/");
 
         driver.manage().window().maximize();
+*/
 /*
         driver.findElement(By.xpath("//input[@name='firstName']")).sendKeys("Healenium");
         driver.findElement(By.xpath("//input[@name='lastName']")).sendKeys("Execution");
@@ -39,7 +51,8 @@ public class TestHealenium {
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", driver.findElement(By.xpath("//*[text()='User Registration Form']")));
 
-*/
+*//*
+
 
        //  === THD Test
         //p[text()='Log In']
@@ -56,5 +69,6 @@ public class TestHealenium {
 
 
     }
+*/
 
 }

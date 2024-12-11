@@ -27,15 +27,56 @@
             <artifactId>healenium-web</artifactId>
             <version>3.5.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
-            <!--   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin   -->
+            <!--   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin
+          <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/TestHealenium.java</include>
+                    </includes>
+                </configuration>
+            </plugin>  -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/*TestHealenium.java</include>
+                    </includes>
+                </configuration>
             </plugin>
+
+
+<!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.testHeal.TestHealenium</mainClass>
+                </configuration>
+            </plugin>
+            -->
             <!--   https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin   -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
