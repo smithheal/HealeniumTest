@@ -11,10 +11,7 @@ name: CI for Maven Project with Healenium and Docker
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - master
 
 jobs:
   build:
