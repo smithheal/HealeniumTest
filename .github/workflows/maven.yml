@@ -11,10 +11,7 @@ name: Healenium with Docker CI/CD
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - master
 
 jobs:
   healenium-test:
