@@ -20,9 +20,9 @@ jobs:
       healenium:
         image: healenium/healenium:latest
         ports:
-          - 4444:4444
+          - 7878:7878
         options: >-
-          --health-cmd="curl --silent --fail localhost:4444/wd/hub/status"
+          --health-cmd="curl --silent --fail localhost:7878/wd/hub/status"
           --health-interval=5s
           --health-timeout=3s
           --health-retries=3
