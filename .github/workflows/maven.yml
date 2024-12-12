@@ -6,50 +6,56 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Healenium with Docker CI/CD
+name: CI for Maven Project with Healenium and Docker
 
 on:
   push:
     branches:
-      - master
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  healenium-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code from GitHub
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # Step 2: Set up Docker Buildx (optional, for multi-platform builds)
-      - name: Set up Docker Buildx
+      # Set up JDK
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adoptopenjdk'
+
+      # Set up Docker
+      - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      # Step 3: Log in to Docker Hub using GitHub Secrets
+      # Log in to Docker Hub using the secrets
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.smithdoc1992 }}
-          password: ${{ secrets.DOCKER_Logansmith@92 }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 4: Pull the Healenium Docker image
-      - name: Pull Healenium Docker image
+      # Build Docker image
+      - name: Build Docker image
         run: |
-          docker pull healenium/healenium:latest
+          docker build -t healenium-docker .
 
-      # Step 5: Run Healenium in a container (adjust based on your needs)
-      - name: Run Healenium Docker container
+      # Run tests inside Docker container
+      - name: Run tests inside Docker container
         run: |
-          docker run -d --name healenium-container healenium/healenium:latest
+          docker run --rm healenium-docker mvn clean test
 
-      # Step 6: Execute tests (or any specific commands you need in the container)
-      - name: Run tests or commands
-        run: |
-          docker exec -t healenium-container <your-test-command>
-
-      # Step 7: Stop and remove the Healenium container (clean up)
-      - name: Clean up Healenium container
-        run: |
-          docker stop healenium-container
-          docker rm healenium-container
+      # Upload test results
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: target/test-*.xml
