@@ -21,6 +21,8 @@ public class TestHealenium {
         WebDriver delegate = new ChromeDriver(options);
         SelfHealingDriver driver =  SelfHealingDriver.create((WebDriver) delegate);
         driver.get("https://www.homedepot.com");
+        driver.manage().window().maximize();
+
     }
 /*
 
